@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+  {% for case in cases %}
+    {% if case.user == user %}
+    <article class="media content-section">
+      <img class="rounded-circle article-img" src="{{ case.case_image.url }}" >
+      <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2" href="#">{{ case.user }}</a>
+          <small class="text-muted">{{ case.date_entered|date:"F D, Y" }}</small>
+        </div>
+        <h2><a class="article-title" href="{% url 'case-detail' case.id %}">{{ case.case_name }}</a></h2>
+      </div>
+    </article>
+    {% endif %}
+  {% endfor %}
+{% else %}
+<h1>You are not login</h1>
+<a class="btn btn-secondary btn-lg mt-1 mb-1" href="{% url 'login-page'%}">Login</a>
+<a class="btn btn-secondary btn-lg mt-1 mb-1" href="{% url 'register-page'%}">SignUp</a>
+{% endif %}
+{% endblock %}

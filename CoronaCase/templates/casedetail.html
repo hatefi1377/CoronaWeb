@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<article class="media content-section">
+  <img class="rounded-circle article-img" src="{{ case.case_image.url }}" >
+  <div class="media-body">
+    <div class="article-metadata">
+      <small class="text-muted">Case name is {{ case.case_name }}</small>
+      <small class="text-muted">              last see on      {{ case.case_last_seen_date|date:"F D, Y" }}</small>
+      <br>
+      {% if object.user == user %}
+        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'case-update' object.id %}">Update</a>
+        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'case-delete' object.id %}">Delete</a>
+      {% endif %}
+    </div>
+    <p>The last place case seen is {{ case.case_last_seen }}</p>
+    <p>Case's number is {{ case.case_number }}</p>
+    <p>Case's address is {{ case.case_address }}</p>
+  </div>
+</article>
+
+{% endblock %}
